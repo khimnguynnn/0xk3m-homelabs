@@ -1,7 +1,4 @@
-data "vault_kv_secret_v2" "chartmuseum" {
-  mount = "secret"
-  name  = "platform/chartmuseum"
-}
+
 
 resource "kubernetes_namespace" "argocd" {
   depends_on = [talos_cluster_kubeconfig.this]
@@ -22,12 +19,12 @@ resource "helm_release" "argocd" {
 
   values = [
     templatefile("${path.module}/argocd-values.yaml", {
-      github_username            = var.github_username
-      github_token               = var.github_token
-      github_oauth_client_id     = var.github_oauth_client_id
-      github_oauth_client_secret = var.github_oauth_client_secret
-      chartmuseum_username       = data.vault_kv_secret_v2.chartmuseum.data["user"]
-      chartmuseum_password       = data.vault_kv_secret_v2.chartmuseum.data["password"]
+      github_username            = local.github_username
+      github_token               = local.github_token
+      github_oauth_client_id     = local.github_oauth_client_id
+      github_oauth_client_secret = local.github_oauth_client_secret
+      chartmuseum_username       = local.chartmuseum_username
+      chartmuseum_password       = local.chartmuseum_password
     })
   ]
 }

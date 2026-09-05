@@ -6,7 +6,7 @@ data "talos_machine_configuration" "node" {
   for_each = var.machines
 
   cluster_name     = var.cluster_name
-  cluster_endpoint = var.cluster_endpoint
+  cluster_endpoint = local.cluster_endpoint
   machine_type     = each.value.type
   machine_secrets  = talos_machine_secrets.this.machine_secrets
 }
