@@ -1,0 +1,5 @@
+{
+  "name": "cloudflare-tunnel-ingress-controller",
+  "srcPath": "kubernetes/apps/gateway/cloudflare-tunnel-ingress-controller",
+  "namespace": "gateway"
+}

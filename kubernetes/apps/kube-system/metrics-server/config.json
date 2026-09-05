@@ -1,0 +1,5 @@
+{
+  "name": "metrics-server",
+  "srcPath": "kubernetes/apps/kube-system/metrics-server",
+  "namespace": "kube-system"
+}

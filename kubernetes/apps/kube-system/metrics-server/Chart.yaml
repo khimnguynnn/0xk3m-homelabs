@@ -1,0 +1,9 @@
+apiVersion: v2
+name: metrics-server
+description: Metrics Server - Kubernetes resource metrics for HPA and kubectl top
+type: application
+version: 3.14.0
+dependencies:
+  - name: metrics-server
+    version: "3.14.0"
+    repository: https://kubernetes-sigs.github.io/metrics-server/

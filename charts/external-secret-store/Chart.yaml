@@ -1,0 +1,5 @@
+apiVersion: v2
+name: external-secret-store
+description: Deploy ClusterSecretStore or SecretStore for external-secrets operator
+type: application
+version: 0.1.0

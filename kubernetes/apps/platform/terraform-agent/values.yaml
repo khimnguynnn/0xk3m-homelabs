@@ -1,0 +1,35 @@
+app:
+  image:
+    repository: hashicorp/tfc-agent
+    tag: "1.31.1"
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  livenessProbe: {}
+  readinessProbe: {}
+
+  env:
+    - name: TFC_AGENT_AUTO_UPDATE
+      value: disabled
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  externalSecret:
+    enabled: true
+    secrets:
+      - secretKey: TFC_AGENT_TOKEN
+        remoteRef:
+          key: platform/terraform
+          property: TFC_AGENT_TOKEN
+

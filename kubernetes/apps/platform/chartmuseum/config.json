@@ -1,0 +1,4 @@
+{
+  "name": "chartmuseum",
+  "srcPath": "kubernetes/apps/platform/chartmuseum"
+}

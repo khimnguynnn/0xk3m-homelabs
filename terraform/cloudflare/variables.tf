@@ -1,0 +1,10 @@
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token with permissions to manage the account resources"
+  type        = string
+  sensitive   = true
+}
+
+variable "cloudflare_account_id" {
+  description = "Cloudflare account ID"
+  type        = string
+}

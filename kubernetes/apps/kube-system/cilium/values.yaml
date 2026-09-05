@@ -1,0 +1,49 @@
+cilium:
+  # Talos assigns node podCIDRs from cluster.network.podSubnets (10.244.0.0/16),
+  # so Cilium consumes them instead of managing its own pool.
+  ipam:
+    mode: kubernetes
+
+  # kube-proxy is disabled in the Talos machine config; Cilium replaces it via eBPF.
+  # Reaches the apiserver through KubePrism, which Talos exposes on every node.
+  kubeProxyReplacement: true
+  k8sServiceHost: localhost
+  k8sServicePort: 7445
+
+  # Talos forbids workloads from loading kernel modules, so SYS_MODULE is dropped
+  # from Cilium's default capability sets.
+  securityContext:
+    capabilities:
+      ciliumAgent:
+        - CHOWN
+        - KILL
+        - NET_ADMIN
+        - NET_RAW
+        - IPC_LOCK
+        - SYS_ADMIN
+        - SYS_RESOURCE
+        - DAC_OVERRIDE
+        - FOWNER
+        - SETGID
+        - SETUID
+      cleanCiliumState:
+        - NET_ADMIN
+        - SYS_ADMIN
+        - SYS_RESOURCE
+
+  # Talos already mounts cgroup v2; Cilium must reuse it rather than mount its own.
+  cgroup:
+    autoMount:
+      enabled: false
+    hostRoot: /sys/fs/cgroup
+
+  hubble:
+    enabled: true
+    relay:
+      enabled: true
+    ui:
+      enabled: true
+      service:
+        type: ClusterIP
+      ingress:
+        enabled: false

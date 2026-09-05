@@ -1,0 +1,12 @@
+apiVersion: v2
+name: cloudflare-tunnel-ingress-controller
+description: Ingress Controller based on Cloudflare Tunnel
+type: application
+version: 0.1.0
+dependencies:
+  - name: cloudflare-tunnel-ingress-controller
+    version: "0.1.0"
+    repository: https://helm.strrl.dev
+  - name: external-secret-helper
+    version: 0.1.0
+    repository: https://charts.0xk3m.dev

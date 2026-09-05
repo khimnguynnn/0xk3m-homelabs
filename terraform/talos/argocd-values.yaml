@@ -1,0 +1,100 @@
+global:
+  domain: argocd.0xk3m.dev
+
+configs:
+  cm:
+    url: https://argocd.0xk3m.dev
+    dex.config: |
+      issuer: https://argocd.0xk3m.dev/api/dex
+      connectors:
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: "${github_oauth_client_id}"
+            clientSecret: "${github_oauth_client_secret}"
+            scopes:
+              - user:email
+              - read:org
+  rbac:
+    create: true
+    policy.csv: |
+      p, role:none, *, *, */*, deny
+      g, khim.nguynn@gmail.com, role:admin
+      g, vanbachpk1@gmail.com, role:admin
+    scopes: "[groups, email]"
+    policy.default: role:none
+
+extraObjects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: github-khiemnd
+      namespace: argocd
+      labels:
+        argocd.argoproj.io/secret-type: repository
+    type: Opaque
+    stringData:
+      url: https://github.com/khimnguynnn/0xk3m-homelabs.git
+      type: git
+      username: "${github_username}"
+      password: "${github_token}"
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: chartmuseum
+      namespace: argocd
+      labels:
+        argocd.argoproj.io/secret-type: repository
+    type: Opaque
+    stringData:
+      name: chartmuseum
+      url: https://charts.0xk3m.dev
+      type: helm
+      username: "${chartmuseum_username}"
+      password: "${chartmuseum_password}"
+
+controller:
+  replicas: 1
+  resources:
+    limits:
+      cpu: "500m"
+      memory: 1Gi
+    requests:
+      cpu: "250m"
+      memory: 256Mi
+  metrics:
+    enabled: true
+
+server:
+  replicas: 1
+  service:
+    type: ClusterIP
+  extraArgs:
+    - --insecure
+  ingress:
+    enabled: true
+    annotations:
+      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+    ingressClassName: "cloudflare-tunnel"
+    pathType: Prefix
+  metrics:
+    enabled: true
+
+applicationSet:
+  replicas: 1
+  metrics:
+    enabled: true
+
+dex:
+  enabled: true
+  metrics:
+    enabled: true
+
+redis:
+  enabled: true
+  metrics:
+    enabled: true
+
+notifications:
+  enabled: false

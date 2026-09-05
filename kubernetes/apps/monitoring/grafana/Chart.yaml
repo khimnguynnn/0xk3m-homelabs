@@ -1,0 +1,12 @@
+apiVersion: v2
+name: grafana
+description: Grafana - observability and data visualization platform
+type: application
+version: 13.2.0
+dependencies:
+  - name: grafana
+    version: "13.2.0"
+    repository: oci://ghcr.io/grafana-community/helm-charts
+  - name: external-secret-helper
+    version: 0.1.0
+    repository: https://charts.0xk3m.dev

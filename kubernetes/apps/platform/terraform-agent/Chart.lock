@@ -1,0 +1,6 @@
+dependencies:
+- name: app
+  repository: https://charts.0xk3m.dev
+  version: 0.1.3
+digest: sha256:09afdddcbb5f9c6582af643c49594447d79930d424c2add5aa033f67bb1da3c9
+generated: "2026-09-05T19:26:56.603179+07:00"

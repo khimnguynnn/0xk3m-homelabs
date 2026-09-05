@@ -1,0 +1,5 @@
+{
+  "name": "cilium",
+  "srcPath": "kubernetes/apps/kube-system/cilium",
+  "namespace": "kube-system"
+}
