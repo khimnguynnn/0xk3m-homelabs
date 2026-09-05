@@ -1,6 +1,4 @@
 terraform {
-  required_version = "1.5.7"
-
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -9,14 +7,6 @@ terraform {
     vault = {
       source  = "hashicorp/vault"
       version = "~> 4.0"
-    }
-  }
-  cloud {
-
-    organization = "khiemnd"
-
-    workspaces {
-      name = "0xk3m-homelab-cloudflare"
     }
   }
 }
