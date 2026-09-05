@@ -3,8 +3,6 @@
 **/.terraform/
 *.tfstate
 *.tfstate.backup
-*.tfvars
-!*.tfvars.example
 
 # Helm
 kubernetes/apps/**/charts/*.tgz
