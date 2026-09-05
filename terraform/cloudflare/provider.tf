@@ -1,3 +1,7 @@
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+  api_token = local.cloudflare_api_token
+}
+
+provider "vault" {
+  address = "http://vault.0xk3m.dev"
 }
