@@ -40,6 +40,9 @@ policies = {
   }
   "terraform-reader" = {
     policy = <<-EOT
+      path "auth/token/lookup-self" {
+        capabilities = ["read"]
+      }
       path "secret/data/terraform/*" {
         capabilities = ["read"]
       }
