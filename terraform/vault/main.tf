@@ -32,3 +32,12 @@ module "k8s_auth" {
   kubernetes_host = var.k8s_host
   roles           = var.k8s_roles
 }
+
+resource "vault_token" "terraform_reader" {
+  display_name = "terraform-reader"
+  policies     = ["terraform-reader"]
+  renewable    = true
+  ttl          = "87600h"
+
+  depends_on = [module.policy]
+}

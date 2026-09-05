@@ -38,6 +38,16 @@ policies = {
     policy = <<-EOT
     EOT
   }
+  "terraform-reader" = {
+    policy = <<-EOT
+      path "secret/data/terraform/*" {
+        capabilities = ["read"]
+      }
+      path "secret/metadata/terraform/*" {
+        capabilities = ["read", "list"]
+      }
+    EOT
+  }
   "sre-admin" = {
     policy = <<-EOT
       path "*" {
