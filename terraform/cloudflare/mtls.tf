@@ -91,17 +91,6 @@ resource "cloudflare_certificate_authorities_hostname_associations" "mtls" {
   hostnames           = var.mtls_hostnames
 }
 
-# ---- Forward the verified client cert to the origin as a header ----
-resource "cloudflare_zero_trust_access_mtls_hostname_settings" "mtls" {
-  zone_id = local.zone_id
-
-  settings = [for h in var.mtls_hostnames : {
-    hostname                      = h
-    china_network                 = false
-    client_certificate_forwarding = true
-  }]
-}
-
 # ---- Enforce: block *.0xk3m.dev without a verified client cert ----
 resource "cloudflare_ruleset" "mtls_enforce" {
   zone_id = local.zone_id
