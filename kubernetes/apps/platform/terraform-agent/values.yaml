@@ -10,8 +10,8 @@ app:
     type: ClusterIP
     port: 80
 
-  livenessProbe: {}
-  readinessProbe: {}
+  livenessProbe: null
+  readinessProbe: null
 
   env:
     - name: TFC_AGENT_AUTO_UPDATE
