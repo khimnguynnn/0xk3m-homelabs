@@ -1,0 +1,10 @@
+apiVersion: v2
+name: terraform-agent
+description: HCP Terraform Cloud Agent
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: app
+    version: 0.1.3
+    repository: https://charts.0xk3m.dev

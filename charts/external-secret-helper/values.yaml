@@ -1,0 +1,24 @@
+defaults:
+  refreshInterval: 1h
+  secretStore:
+    name: vault-backend
+    kind: ClusterSecretStore
+
+externalSecrets: []
+# - name: my-app-secrets          # name of the ExternalSecret (and target k8s Secret)
+#   refreshInterval: 5m           # optional, overrides defaults.refreshInterval
+#   secretStore:                  # optional, overrides defaults.secretStore
+#     name: vault-backend
+#     kind: ClusterSecretStore
+#   data:
+#     - secretKey: DB_PASSWORD    # key in the k8s Secret
+#       remoteRef:
+#         key: secret/myapp       # path in vault
+#         property: db_password   # field in vault secret
+#
+# - name: my-app-secretfiles
+#   data:
+#     - secretKey: config.yaml
+#       remoteRef:
+#         key: secret/myapp
+#         property: config

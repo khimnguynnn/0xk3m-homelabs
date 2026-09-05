@@ -1,0 +1,5 @@
+apiVersion: v2
+name: external-secret-helper
+description: Create ExternalSecret resources for apps that don't have built-in support
+type: application
+version: 0.1.0

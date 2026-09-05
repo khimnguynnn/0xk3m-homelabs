@@ -1,0 +1,151 @@
+grafana:
+  rbac:
+    create: true
+  serviceAccount:
+    create: true
+    automountServiceAccountToken: false
+  replicas: 1
+  automountServiceAccountToken: true
+  progressDeadlineSeconds: null
+  readinessProbe:
+    httpGet:
+      path: /api/health
+      port: grafana
+  livenessProbe:
+    httpGet:
+      path: /api/health
+      port: grafana
+    initialDelaySeconds: 60
+    timeoutSeconds: 30
+    failureThreshold: 10
+  image:
+    registry: docker.io
+    repository: grafana/grafana
+    tag: "{{ .Chart.AppVersion }}-distroless"
+    pullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 472
+    runAsGroup: 472
+    fsGroup: 472
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    privileged: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  createConfigmap: true
+  downloadDashboards:
+    env: {}
+    envFromSecret: ""
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      seccompProfile:
+        type: RuntimeDefault
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
+    portName: service
+
+  ingress:
+    enabled: true
+    ingressClassName: cloudflare-tunnel
+    annotations:
+      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+    path: /
+    pathType: Prefix
+    hosts:
+      - grafana.0xk3m.dev
+
+  resources: {}
+
+  persistence:
+    type: pvc
+    enabled: true
+    volumeName: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
+
+  admin:
+    existingSecret: grafana-secrets
+    userKey: adminUser
+    passwordKey: adminPassword
+
+  envFromSecret: grafana-secrets
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-server.monitoring.svc.cluster.local
+          isDefault: true
+          access: proxy
+          editable: false
+
+  grafana.ini:
+    paths:
+      data: /var/lib/grafana/
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    server:
+      domain: grafana.0xk3m.dev
+      root_url: https://grafana.0xk3m.dev
+    unified_storage:
+      index_path: /var/lib/grafana-search/bleve
+    auth.google:
+      enabled: true
+      client_id: $__env{oidcClientId}
+      client_secret: $__env{oidcClientSecret}
+      scopes: openid email profile
+      auth_url: https://accounts.google.com/o/oauth2/v2/auth
+      token_url: https://oauth2.googleapis.com/token
+      api_url: https://openidconnect.googleapis.com/v1/userinfo
+      allowed_emails: $__env{allowedEmails}
+      allow_sign_up: true
+      use_pkce: true
+      role_attribute_path: contains(email, $__env{allowedEmails}) && 'Admin' || 'Viewer'
+
+external-secret-helper:
+  externalSecrets:
+    - name: grafana-secrets
+      refreshInterval: 1h
+      data:
+        - secretKey: adminPassword
+          remoteRef:
+            key: monitoring/grafana
+            property: adminPassword
+        - secretKey: adminUser
+          remoteRef:
+            key: monitoring/grafana
+            property: adminUser
+        - secretKey: oidcClientId
+          remoteRef:
+            key: monitoring/grafana
+            property: oidcClientId
+        - secretKey: oidcClientSecret
+          remoteRef:
+            key: monitoring/grafana
+            property: oidcClientSecret
+        - secretKey: allowedEmails
+          remoteRef:
+            key: monitoring/grafana
+            property: allowedEmails

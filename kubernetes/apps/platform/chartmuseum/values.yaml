@@ -1,0 +1,46 @@
+chartmuseum:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/helm/chartmuseum
+    tag: v0.16.2
+    pullPolicy: IfNotPresent
+
+  env:
+    open:
+      STORAGE: local
+      DISABLE_API: false
+      ALLOW_OVERWRITE: true
+    existingSecret: chartmuseum-secrets
+    existingSecretMappings:
+      BASIC_AUTH_USER: user
+      BASIC_AUTH_PASS: password
+
+  persistence:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+
+  ingress:
+    enabled: true
+    annotations:
+      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+    ingressClassName: cloudflare-tunnel
+    hosts:
+      - name: charts.0xk3m.dev
+        path: /
+        tls: false
+
+external-secret-helper:
+  externalSecrets:
+    - name: chartmuseum-secrets
+      refreshInterval: 1h
+      data:
+        - secretKey: password
+          remoteRef:
+            key: platform/chartmuseum
+            property: password
+        - secretKey: user
+          remoteRef:
+            key: platform/chartmuseum
+            property: user

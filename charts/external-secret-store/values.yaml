@@ -1,0 +1,19 @@
+stores:
+  - name: vault-backend
+    kind: ClusterSecretStore
+    provider:
+      vault:
+        server: http://vault.platform.svc:8200
+        path: secret
+        version: v2
+        auth:
+          # Option 1: Kubernetes ServiceAccount auth (recommended)
+          kubernetes:
+            mountPath: kubernetes
+            role: external-secrets
+            serviceAccountRef:
+              name: external-secrets
+          # Option 2: Token auth — comment out kubernetes block and uncomment this
+          # tokenSecretRef:
+          #   name: vault-token
+          #   key: token

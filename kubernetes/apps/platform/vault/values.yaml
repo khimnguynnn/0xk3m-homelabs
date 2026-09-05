@@ -1,0 +1,72 @@
+vault:
+  injector:
+    enabled: false
+  server:
+    enabled: true
+    image:
+      repository: "hashicorp/vault"
+      tag: "1.19.0"
+      pullPolicy: IfNotPresent
+    resources:
+      requests: {}
+    extraSecretEnvironmentVars:
+      - envName: AWS_ACCESS_KEY_ID
+        secretName: vault-aws-secrets
+        secretKey: AWS_ACCESS_KEY_ID
+      - envName: AWS_SECRET_ACCESS_KEY
+        secretName: vault-aws-secrets
+        secretKey: AWS_SECRET_ACCESS_KEY
+    dataStorage:
+      enabled: true
+      size: 5Gi
+      mountPath: "/vault/data"
+      storageClass: ""
+      accessMode: ReadWriteOnce
+    standalone:
+      enabled: true
+      config: |
+        ui = true
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+        }
+
+        storage "file" {
+          path = "/vault/data"
+        }
+
+        # AWS KMS Auto-unseal configuration
+        seal "awskms" {
+          region     = "ap-southeast-1"
+          kms_key_id = "arn:aws:kms:ap-southeast-1:359672545978:key/c38b505c-64eb-4a9c-ae8d-3013b2fbabe0"
+        }
+    ingress:
+      enabled: true
+      annotations:
+        cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+      ingressClassName: "cloudflare-tunnel"
+      pathType: Prefix
+      hosts:
+        - host: "vault.0xk3m.dev"
+          paths:
+            - /
+    serviceAccount:
+      create: true
+  ui:
+    enabled: true
+
+external-secret-helper:
+  externalSecrets:
+    - name: vault-aws-secrets
+      refreshInterval: 1h
+      data:
+        - secretKey: AWS_ACCESS_KEY_ID
+          remoteRef:
+            key: platform/vault
+            property: AWS_ACCESS_KEY_ID
+        - secretKey: AWS_SECRET_ACCESS_KEY
+          remoteRef:
+            key: platform/vault
+            property: AWS_SECRET_ACCESS_KEY

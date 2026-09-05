@@ -1,0 +1,4 @@
+{
+  "name": "terraform-agent",
+  "srcPath": "kubernetes/apps/platform/terraform-agent"
+}

@@ -1,0 +1,4 @@
+{
+  "name": "vault",
+  "srcPath": "kubernetes/apps/platform/vault"
+}

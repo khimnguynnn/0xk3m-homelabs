@@ -1,0 +1,5 @@
+{
+  "name": "grafana",
+  "srcPath": "kubernetes/apps/monitoring/grafana",
+  "namespace": "monitoring"
+}

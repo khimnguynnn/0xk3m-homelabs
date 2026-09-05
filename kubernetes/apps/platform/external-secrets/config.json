@@ -1,0 +1,4 @@
+{
+  "name": "external-secrets",
+  "srcPath": "kubernetes/apps/platform/external-secrets"
+}

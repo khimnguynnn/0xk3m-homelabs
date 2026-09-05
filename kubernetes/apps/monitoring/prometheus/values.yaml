@@ -1,0 +1,43 @@
+prometheus:
+  server:
+    enabled: true
+    replicaCount: 1
+
+    service:
+      type: ClusterIP
+
+    persistentVolume:
+      enabled: true
+      size: 10Gi
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+
+    retention: "15d"
+
+  alertmanager:
+    enabled: false
+
+  prometheus-pushgateway:
+    enabled: false
+
+  kube-state-metrics:
+    enabled: true
+
+  prometheus-node-exporter:
+    enabled: true
+
+  extraScrapeConfigs: |
+    - job_name: pve-exporter
+      metrics_path: /metrics
+      params:
+        target:
+          - 192.168.73.10
+      static_configs:
+        - targets:
+            - 192.168.73.10:9221
