@@ -23,7 +23,7 @@ audit_devices = {
 secrets_engines = {
   "secret" = {
     description = "General KV v2 secrets"
-    folders     = ["app", "database", "gateway", "monitoring", "platform"]
+    folders     = ["app", "database", "gateway", "monitoring", "platform", "terraform"]
   }
 }
 
