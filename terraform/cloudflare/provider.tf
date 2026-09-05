@@ -3,5 +3,6 @@ provider "cloudflare" {
 }
 
 provider "vault" {
-  address = "http://vault.0xk3m.dev"
+  address           = "http://vault.0xk3m.dev"
+  skip_child_token  = true
 }
