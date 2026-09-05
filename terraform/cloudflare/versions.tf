@@ -11,4 +11,12 @@ terraform {
       version = "~> 4.0"
     }
   }
+  cloud {
+
+    organization = "khiemnd"
+
+    workspaces {
+      name = "0xk3m-homelab-cloudflare"
+    }
+  }
 }
