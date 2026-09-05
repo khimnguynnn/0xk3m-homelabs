@@ -109,40 +109,4 @@ nodes = {
     }
     boot_order = ["virtio0", "ide2"]
   }
-  "coredns" = {
-    description     = "CoreDNS - Talos"
-    tags            = ["coredns", "talos"]
-    node_name       = "pve"
-    machine         = "q35"
-    bios            = "seabios"
-    started         = true
-    stop_on_destroy = true
-    cpu = {
-      cores = 2
-      type  = "host"
-    }
-    memory = {
-      dedicated = 2048
-    }
-    cdrom = {
-      file_id   = "local:iso/metal-amd64.iso"
-      interface = "ide2"
-    }
-    disk = {
-      datastore_id = "local-lvm"
-      interface    = "virtio0"
-      size         = 20
-      iothread     = true
-      discard      = "on"
-    }
-    network_device = {
-      bridge   = "vmbr0"
-      model    = "virtio"
-      firewall = false
-    }
-    operating_system = {
-      type = "l26"
-    }
-    boot_order = ["virtio0", "ide2"]
-  }
 }
