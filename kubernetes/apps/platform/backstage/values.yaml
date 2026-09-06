@@ -28,6 +28,9 @@ backstage:
       runAsGroup: 1000
       fsGroup: 1000
 
+    extraEnvVarsSecrets:
+      - backstage-secrets
+
     extraEnvVars:
       - name: APP_CONFIG_app_baseUrl
         value: "https://backstage.0xk3m.dev"
@@ -38,7 +41,17 @@ backstage:
       app:
         title: 0xk3m Homelab
         baseUrl: https://backstage.0xk3m.dev
-
+      auth:
+        environment: homelab
+        providers:
+          google:
+            homelab:
+              clientId: ${GOOGLE_CLIENT_ID}
+              clientSecret: ${GOOGLE_CLIENT_SECRET}
+              callbackUrl: https://backstage.0xk3m.dev/api/auth/google/callback
+              signIn:
+                resolvers:
+                  - resolver: emailMatchingUserEntityAnnotation
       backend:
         baseUrl: https://backstage.0xk3m.dev
         listen:
@@ -52,7 +65,8 @@ backstage:
 
       catalog:
         rules:
-          - allow: [Component, System, API, Resource, Location, Domain, Group, User]
+          - allow:
+              [Component, System, API, Resource, Location, Domain, Group, User]
         locations: []
 
   ingress:
@@ -93,3 +107,11 @@ external-secret-helper:
           remoteRef:
             key: platform/backstage
             property: postgresPassword
+        - secretKey: GOOGLE_CLIENT_ID
+          remoteRef:
+            key: platform/backstage
+            property: GOOGLE_CLIENT_ID
+        - secretKey: GOOGLE_CLIENT_SECRET
+          remoteRef:
+            key: platform/backstage
+            property: GOOGLE_CLIENT_SECRET
