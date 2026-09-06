@@ -24,6 +24,12 @@ backstage:
     runAsGroup: 1000
     fsGroup: 1000
 
+  extraEnvVars:
+    - name: APP_CONFIG_app_baseUrl
+      value: "https://backstage.0xk3m.dev"
+    - name: APP_CONFIG_backend_baseUrl
+      value: "https://backstage.0xk3m.dev"
+
   appConfig:
     app:
       title: 0xk3m Homelab
@@ -45,30 +51,30 @@ backstage:
         - allow: [Component, System, API, Resource, Location, Domain, Group, User]
       locations: []
 
-  ingress:
-    enabled: true
-    className: cloudflare-tunnel
-    annotations:
-      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
-    host: backstage.0xk3m.dev
-    path: /
-    tls:
-      enabled: false
+ingress:
+  enabled: true
+  className: cloudflare-tunnel
+  annotations:
+    cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+  host: backstage.0xk3m.dev
+  path: /
+  tls:
+    enabled: false
 
-  service:
-    type: ClusterIP
-    ports:
-      backend: 7007
+service:
+  type: ClusterIP
+  ports:
+    backend: 7007
 
-  postgresql:
-    enabled: true
-    auth:
-      username: backstage
-      database: backstage
-      existingSecret: backstage-secrets
-      secretKeys:
-        adminPasswordKey: admin-password
-        userPasswordKey: user-password
+postgresql:
+  enabled: true
+  auth:
+    username: backstage
+    database: backstage
+    existingSecret: backstage-secrets
+    secretKeys:
+      adminPasswordKey: admin-password
+      userPasswordKey: user-password
 
 external-secret-helper:
   externalSecrets:
