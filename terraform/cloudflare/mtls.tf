@@ -18,7 +18,7 @@ resource "cloudflare_ruleset" "mtls_enforcement" {
   rules = [
     {
       description = "Block requests without valid client certificate"
-      expression  = "(http.host in {\"${join("\" \"", local.mtls_hostnames)}\"}) and not cf.tls_client_auth.cert_verified"
+      expression  = "(http.host in {\"${join("\" \"", local.mtls_hostnames)}\"}) and not cf.tls_client_auth.cert_verified and not http.request.uri.path in {\"/favicon.ico\" \"/robots.txt\"} and not starts_with(http.request.uri.path, \"/static\") and not starts_with(http.request.uri.path, \"/assets\")"
       action      = "block"
       enabled     = true
     }
