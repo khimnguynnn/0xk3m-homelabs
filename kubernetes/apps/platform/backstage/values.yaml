@@ -1,55 +1,59 @@
 backstage:
-  replicas: 1
+  backstage:
+    replicas: 1
 
-  image:
-    registry: docker.io
-    repository: khimnguynn/backstage
-    tag: latest
-    pullPolicy: IfNotPresent
+    image:
+      # registry: docker.io
+      # repository: khimnguynn/backstage
+      # tag: latest
+      registry: ghcr.io
+      repository: backstage/backstage
+      tag: latest
+      pullPolicy: IfNotPresent
 
-  containerSecurityContext:
-    allowPrivilegeEscalation: false
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 1000
-    capabilities:
-      drop:
-        - ALL
-    seccompProfile:
-      type: RuntimeDefault
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      capabilities:
+        drop:
+          - ALL
+      seccompProfile:
+        type: RuntimeDefault
 
-  podSecurityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
 
-  extraEnvVars:
-    - name: APP_CONFIG_app_baseUrl
-      value: "https://backstage.0xk3m.dev"
-    - name: APP_CONFIG_backend_baseUrl
-      value: "https://backstage.0xk3m.dev"
+    extraEnvVars:
+      - name: APP_CONFIG_app_baseUrl
+        value: "https://backstage.0xk3m.dev"
+      - name: APP_CONFIG_backend_baseUrl
+        value: "https://backstage.0xk3m.dev"
 
-  appConfig:
-    app:
-      title: 0xk3m Homelab
-      baseUrl: https://backstage.0xk3m.dev
+    appConfig:
+      app:
+        title: 0xk3m Homelab
+        baseUrl: https://backstage.0xk3m.dev
 
-    backend:
-      baseUrl: https://backstage.0xk3m.dev
-      listen:
-        port: 7007
-      csp:
-        connect-src: ["'self'", "http:", "https:"]
-      cors:
-        origin: https://backstage.0xk3m.dev
-        methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-        credentials: true
+      backend:
+        baseUrl: https://backstage.0xk3m.dev
+        listen:
+          port: 7007
+        csp:
+          connect-src: ["'self'", "http:", "https:"]
+        cors:
+          origin: https://backstage.0xk3m.dev
+          methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+          credentials: true
 
-    catalog:
-      rules:
-        - allow: [Component, System, API, Resource, Location, Domain, Group, User]
-      locations: []
+      catalog:
+        rules:
+          - allow: [Component, System, API, Resource, Location, Domain, Group, User]
+        locations: []
 
   ingress:
     enabled: true
