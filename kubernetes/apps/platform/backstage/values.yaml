@@ -2,8 +2,8 @@ backstage:
   replicas: 1
 
   image:
-    registry: ghcr.io
-    repository: backstage/backstage
+    registry: quay.io
+    repository: janus-idp/backstage-showcase
     tag: latest
     pullPolicy: IfNotPresent
 
