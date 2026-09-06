@@ -38,6 +38,7 @@ resource "vault_token" "terraform_reader" {
   policies     = ["terraform-reader"]
   renewable    = true
   ttl          = "87600h"
+  no_parent    = true
 
   depends_on = [module.policy]
 }
