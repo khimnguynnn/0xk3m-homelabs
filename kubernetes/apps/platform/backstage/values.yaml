@@ -67,14 +67,19 @@ backstage:
       database: backstage
       existingSecret: backstage-secrets
       secretKeys:
-        userPasswordKey: postgresPassword
+        adminPasswordKey: admin-password
+        userPasswordKey: user-password
 
 external-secret-helper:
   externalSecrets:
     - name: backstage-secrets
       refreshInterval: 1h
       data:
-        - secretKey: postgresPassword
+        - secretKey: admin-password
+          remoteRef:
+            key: platform/backstage
+            property: postgresPassword
+        - secretKey: user-password
           remoteRef:
             key: platform/backstage
             property: postgresPassword
