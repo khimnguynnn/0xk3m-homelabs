@@ -3,6 +3,6 @@ locals {
   cloudflare_api_token  = data.vault_kv_secret_v2.cloudflare.data["cloudflare_api_token"]
 
   # mTLS protected hostnames (Cloudflare Managed CA)
-  # Excluded: status.0xk3m.dev, charts.0xk3m.dev, vault.0xk3m.dev
-  mtls_hostnames = ["grafana.0xk3m.dev", "argocd.0xk3m.dev"]
+  # Excluded: status.0xk3m.dev, charts.0xk3m.dev, vault.0xk3m.dev, argocd.0xk3m.dev (has own auth)
+  mtls_hostnames = ["grafana.0xk3m.dev"]
 }
