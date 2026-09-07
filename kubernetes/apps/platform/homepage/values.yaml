@@ -82,6 +82,6 @@ app-template:
             - Google Cloud:
               - href: https://console.cloud.google.com
                 icon: google-cloud-platform.svg
-            - AWS Cloud
+            - AWS Cloud:
               - href: https://khiemnd.awsapps.com/start
                 icon: amazon-web-services.svg
