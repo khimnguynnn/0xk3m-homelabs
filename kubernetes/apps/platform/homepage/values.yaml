@@ -87,7 +87,16 @@ homepage:
 
     settingsString: |
       title: 0xk3m Homelab
-      headerStyle: boxed
+      theme: dark
+      color: slate
+      headerStyle: clean
+      iconStyle: theme
+      cardBlur: md
+      background:
+        image: https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2560&q=80
+        blur: sm
+        brightness: 40
+        opacity: 80
       layout:
         Infrastructure:
 
