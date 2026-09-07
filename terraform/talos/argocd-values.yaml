@@ -18,7 +18,7 @@ configs:
     create: true
     policy.csv: |
       p, role:none, *, *, */*, deny
-      g, khim.nguynn@gmail.com, role:admin
+      g, khimnguynn@gmail.com, role:admin
       g, vanbachpk1@gmail.com, role:admin
     scopes: "[groups, email]"
     policy.default: role:none
