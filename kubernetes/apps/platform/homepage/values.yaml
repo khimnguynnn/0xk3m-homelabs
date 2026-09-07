@@ -30,7 +30,7 @@ app-template:
     config:
       enabled: true
       type: configMap
-      name: homepage-config
+      name: gethomepage-config
       globalMounts:
         - path: /app/config/settings.yaml
           subPath: settings.yaml
