@@ -1,0 +1,98 @@
+homepage:
+  image:
+    repository: ghcr.io/gethomepage/homepage
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  enableRbac: true
+
+  serviceAccount:
+    name: homepage
+    create: true
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: cloudflare-tunnel
+      annotations:
+        cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+      hosts:
+        - host: home.0xk3m.dev
+          paths:
+            - path: /
+              pathType: Prefix
+
+  env:
+    - name: HOMEPAGE_ALLOWED_HOSTS
+      value: "home.0xk3m.dev"
+
+  config:
+    bookmarks:
+      - Homelab:
+          - ArgoCD:
+              - abbr: CD
+                href: https://argocd.0xk3m.dev
+          - Grafana:
+              - abbr: GF
+                href: https://grafana.0xk3m.dev
+          - Vault:
+              - abbr: VT
+                href: https://vault.0xk3m.dev
+
+    services:
+      - Infrastructure:
+          - ArgoCD:
+              href: https://argocd.0xk3m.dev
+              description: GitOps continuous delivery
+              icon: argocd.png
+          - Grafana:
+              href: https://grafana.0xk3m.dev
+              description: Observability & dashboards
+              icon: grafana.png
+          - Vault:
+              href: https://vault.0xk3m.dev
+              description: Secrets management
+              icon: vault.png
+
+    widgets:
+      - resources:
+          backend: kubernetes
+          expanded: true
+          cpu: true
+          memory: true
+      - search:
+          provider: duckduckgo
+          target: _blank
+      - kubernetes:
+          cluster:
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+            label: "0xk3m"
+          nodes:
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+
+    kubernetes:
+      mode: cluster
+
+    settingsString: |
+      title: 0xk3m Homelab
+      headerStyle: boxed
+      layout:
+        Infrastructure:
+
+  persistence:
+    logs:
+      enabled: true
+      type: emptyDir
+      mountPath: /app/config/logs
