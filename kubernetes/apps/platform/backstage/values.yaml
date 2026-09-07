@@ -49,6 +49,7 @@ backstage:
       app:
         title: 0xk3m Homelab
         baseUrl: https://backstage.0xk3m.dev
+        packageName: example-app
       auth:
         environment: homelab
         providers:
