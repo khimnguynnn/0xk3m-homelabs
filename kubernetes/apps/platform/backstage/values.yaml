@@ -33,6 +33,17 @@ backstage:
         value: "https://backstage.0xk3m.dev"
       - name: APP_CONFIG_backend_baseUrl
         value: "https://backstage.0xk3m.dev"
+      - name: POSTGRES_HOST
+        value: "backstage-postgresql"
+      - name: POSTGRES_PORT
+        value: "5432"
+      - name: POSTGRES_USER
+        value: "backstage"
+      - name: POSTGRES_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: backstage-secrets
+            key: user-password
 
     appConfig:
       app:
@@ -54,6 +65,13 @@ backstage:
         baseUrl: https://backstage.0xk3m.dev
         listen:
           port: 7007
+        database:
+          client: pg
+          connection:
+            host: ${POSTGRES_HOST}
+            port: ${POSTGRES_PORT}
+            user: ${POSTGRES_USER}
+            password: ${POSTGRES_PASSWORD}
         csp:
           connect-src: ["'self'", "http:", "https:"]
         cors:
