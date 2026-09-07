@@ -23,14 +23,14 @@ homepage:
       annotations:
         cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
       hosts:
-        - host: home.0xk3m.dev
+        - host: homepage.0xk3m.dev
           paths:
             - path: /
               pathType: Prefix
 
   env:
     - name: HOMEPAGE_ALLOWED_HOSTS
-      value: "home.0xk3m.dev"
+      value: "homepage.0xk3m.dev"
 
   config:
     bookmarks:
