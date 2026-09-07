@@ -21,8 +21,8 @@ resource "helm_release" "argocd" {
     templatefile("${path.module}/argocd-values.yaml", {
       github_username            = local.github_username
       github_token               = local.github_token
-      github_oauth_client_id     = local.github_oauth_client_id
-      github_oauth_client_secret = local.github_oauth_client_secret
+      google_oauth_client_id     = local.google_oauth_client_id
+      google_oauth_client_secret = local.google_oauth_client_secret
       chartmuseum_username       = local.chartmuseum_username
       chartmuseum_password       = local.chartmuseum_password
     })

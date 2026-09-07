@@ -7,15 +7,13 @@ configs:
     dex.config: |
       issuer: https://argocd.0xk3m.dev/api/dex
       connectors:
-        - type: github
-          id: github
-          name: GitHub
+        - type: google
+          id: google
+          name: Google
           config:
-            clientID: "${github_oauth_client_id}"
-            clientSecret: "${github_oauth_client_secret}"
-            scopes:
-              - user:email
-              - read:org
+            clientID: "${google_oauth_client_id}"
+            clientSecret: "${google_oauth_client_secret}"
+            redirectURI: https://argocd.0xk3m.dev/api/dex/callback
   rbac:
     create: true
     policy.csv: |
