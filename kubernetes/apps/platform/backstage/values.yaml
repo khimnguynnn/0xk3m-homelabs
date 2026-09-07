@@ -3,13 +3,10 @@ backstage:
     replicas: 1
 
     image:
-      # registry: docker.io
-      # repository: khimnguynn/backstage
-      # tag: latest
-      registry: ghcr.io
-      repository: backstage/backstage
+      registry: docker.io
+      repository: khimnguynn/backstage
       tag: latest
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
 
     containerSecurityContext:
       allowPrivilegeEscalation: false
@@ -48,10 +45,11 @@ backstage:
             homelab:
               clientId: ${GOOGLE_CLIENT_ID}
               clientSecret: ${GOOGLE_CLIENT_SECRET}
-              callbackUrl: https://backstage.0xk3m.dev/api/auth/google/callback
               signIn:
                 resolvers:
                   - resolver: emailMatchingUserEntityAnnotation
+                    params:
+                      dangerouslyAllowSignInWithoutUserInCatalog: true
       backend:
         baseUrl: https://backstage.0xk3m.dev
         listen:
@@ -67,7 +65,9 @@ backstage:
         rules:
           - allow:
               [Component, System, API, Resource, Location, Domain, Group, User]
-        locations: []
+        locations:
+          - type: url
+            target: https://raw.githubusercontent.com/khimnguynnn/0xk3m-homelabs/main/kubernetes/apps/platform/backstage/catalog/users.yaml
 
   ingress:
     enabled: true
