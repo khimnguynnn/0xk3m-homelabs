@@ -8,5 +8,5 @@ dependencies:
     version: "0.1.0"
     repository: https://helm.strrl.dev
   - name: external-secret-helper
-    version: 0.1.0
+    version: 0.1.1
     repository: https://charts.0xk3m.dev
