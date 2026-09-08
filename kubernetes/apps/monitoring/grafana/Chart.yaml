@@ -8,5 +8,5 @@ dependencies:
     version: "13.2.0"
     repository: oci://ghcr.io/grafana-community/helm-charts
   - name: external-secret-helper
-    version: 0.1.0
+    version: 0.1.2
     repository: https://charts.0xk3m.dev
