@@ -14,7 +14,10 @@ externalSecrets: []
 #     - secretKey: DB_PASSWORD    # key in the k8s Secret
 #       remoteRef:
 #         key: secret/myapp       # path in vault
-#         property: db_password   # field in vault secret
+#         property: db_password   # field in vault secret (optional)
+#         # conversionStrategy: Default    # optional: Default, Unicode
+#         # decodingStrategy: None         # optional: None, Base64, Base64URL, Auto
+#         # metadataPolicy: None           # optional: None, Fetch
 #
 # - name: my-app-secretfiles
 #   data:
