@@ -1,0 +1,5 @@
+apiVersion: v2
+name: proxmox
+description: Proxmox external service, endpoints and Cloudflare tunnel ingress
+type: application
+version: 0.1.0

@@ -1,0 +1,3 @@
+# No values required — proxmox manifests are static.
+# This file exists because the platform ApplicationSet references
+# helm.valueFiles: values.yaml for every app.
