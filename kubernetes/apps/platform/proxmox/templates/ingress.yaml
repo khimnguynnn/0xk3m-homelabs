@@ -4,6 +4,8 @@ metadata:
   name: proxmox-server
   annotations:
     cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+    cloudflare-tunnel-ingress-controller.cfargotunnel.com/backend-protocol: "https"
+    cloudflare-tunnel-ingress-controller.cfargotunnel.com/proxy-ssl-verify: "off"
 spec:
   rules:
   - host: "proxmox.0xk3m.dev"
