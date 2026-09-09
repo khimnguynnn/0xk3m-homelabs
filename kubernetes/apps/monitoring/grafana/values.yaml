@@ -59,8 +59,6 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: cloudflare-tunnel
-    annotations:
-      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
     path: /
     pathType: Prefix
     hosts:
@@ -93,6 +91,11 @@ grafana:
           type: prometheus
           url: http://prometheus-server.monitoring.svc.cluster.local
           isDefault: true
+          access: proxy
+          editable: false
+        - name: Loki
+          type: loki
+          url: http://loki.monitoring.svc.cluster.local:3100
           access: proxy
           editable: false
 

@@ -16,8 +16,6 @@ app-template:
     main:
       enabled: true
       className: cloudflare-tunnel
-      annotations:
-        cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
       hosts:
         - host: homepage.0xk3m.dev
           paths:

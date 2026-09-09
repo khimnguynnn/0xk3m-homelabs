@@ -124,8 +124,6 @@ server:
     - --insecure
   ingress:
     enabled: true
-    annotations:
-      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
     ingressClassName: "cloudflare-tunnel"
     pathType: Prefix
   metrics:

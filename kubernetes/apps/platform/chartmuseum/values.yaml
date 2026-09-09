@@ -23,8 +23,6 @@ chartmuseum:
 
   ingress:
     enabled: true
-    annotations:
-      cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
     ingressClassName: cloudflare-tunnel
     hosts:
       - name: charts.0xk3m.dev
