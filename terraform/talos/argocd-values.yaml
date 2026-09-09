@@ -13,7 +13,59 @@ configs:
           config:
             clientID: "${google_oauth_client_id}"
             clientSecret: "${google_oauth_client_secret}"
-            redirectURI: https://argocd.0xk3m.dev/api/dex/callback
+    resource.exclusions: |
+      ### Network resources created by the Kubernetes control plane
+      - apiGroups:
+        - discovery.k8s.io
+        kinds:
+        - EndpointSlice
+      ### Internal Kubernetes resources excluded reduce the number of watched events
+      - apiGroups:
+        - coordination.k8s.io
+        kinds:
+        - Lease
+      ### Internal Kubernetes Authz/Authn resources
+      - apiGroups:
+        - authentication.k8s.io
+        - authorization.k8s.io
+        kinds:
+        - SelfSubjectReview
+        - TokenReview
+        - LocalSubjectAccessReview
+        - SelfSubjectAccessReview
+        - SelfSubjectRulesReview
+        - SubjectAccessReview
+      ### Intermediate Certificate Request
+      - apiGroups:
+        - certificates.k8s.io
+        kinds:
+        - CertificateSigningRequest
+      - apiGroups:
+        - cert-manager.io
+        kinds:
+        - CertificateRequest
+      ### Cilium internal resources
+      - apiGroups:
+        - cilium.io
+        kinds:
+        - CiliumIdentity
+        - CiliumEndpoint
+        - CiliumEndpointSlice
+      ### Kyverno intermediate and reporting resources
+      - apiGroups:
+        - kyverno.io
+        - reports.kyverno.io
+        - wgpolicyk8s.io
+        kinds:
+        - PolicyReport
+        - ClusterPolicyReport
+        - EphemeralReport
+        - ClusterEphemeralReport
+        - AdmissionReport
+        - ClusterAdmissionReport
+        - BackgroundScanReport
+        - ClusterBackgroundScanReport
+        - UpdateRequest
   rbac:
     create: true
     policy.csv: |
