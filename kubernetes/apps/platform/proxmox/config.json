@@ -1,0 +1,4 @@
+{
+  "name": "proxmox",
+  "srcPath": "kubernetes/apps/platform/proxmox"
+}

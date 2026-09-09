@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: proxmox-server
+  annotations:
+    cloudflare-tunnel-ingress-controller.cfargotunnel.com/enabled: "true"
+spec:
+  rules:
+  - host: "proxmox.0xk3m.dev"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: proxmox-ip-svc
+            port:
+              number: 8006
