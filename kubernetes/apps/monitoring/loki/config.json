@@ -1,0 +1,5 @@
+{
+  "name": "loki",
+  "srcPath": "kubernetes/apps/monitoring/loki",
+  "namespace": "monitoring"
+}
