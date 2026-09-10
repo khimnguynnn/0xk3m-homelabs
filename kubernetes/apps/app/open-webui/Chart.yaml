@@ -1,0 +1,12 @@
+apiVersion: v2
+name: open-webui
+description: Open WebUI - self-hosted AI chat interface
+type: application
+version: 16.5.0
+dependencies:
+  - name: open-webui
+    version: "16.5.0"
+    repository: https://helm.openwebui.com/
+  - name: external-secret-helper
+    version: 0.1.2
+    repository: https://charts.0xk3m.dev

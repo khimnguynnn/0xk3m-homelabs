@@ -1,0 +1,5 @@
+{
+  "name": "open-webui",
+  "srcPath": "kubernetes/apps/app/open-webui",
+  "namespace": "app"
+}

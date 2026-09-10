@@ -1,0 +1,53 @@
+open-webui:
+  # External OpenAI-compatible provider (DeepSeek); no in-cluster models.
+  ollama:
+    enabled: false
+  pipelines:
+    enabled: false
+
+  # Both endpoint URL and API key come from Vault via the secret below.
+  # Blank the chart's native key so it doesn't also emit a plain-value OPENAI env.
+  enableOpenaiApi: true
+  openaiBaseApiUrl: ""
+  extraEnvVars:
+    - name: OPENAI_API_BASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: openaiBaseApiUrl
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: openaiApiKey
+
+  persistence:
+    enabled: true
+    size: 5Gi
+    accessModes:
+      - ReadWriteOnce
+
+  service:
+    type: ClusterIP
+    port: 80
+    containerPort: 8080
+
+  ingress:
+    enabled: true
+    class: cloudflare-tunnel
+    host: chat.0xk3m.dev
+    tls: false
+
+external-secret-helper:
+  externalSecrets:
+    - name: open-webui-secrets
+      refreshInterval: 1h
+      data:
+        - secretKey: openaiApiKey
+          remoteRef:
+            key: app/open-webui
+            property: openaiApiKey
+        - secretKey: openaiBaseApiUrl
+          remoteRef:
+            key: app/open-webui
+            property: openaiBaseApiUrl
