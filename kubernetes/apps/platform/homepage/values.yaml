@@ -53,6 +53,7 @@ app-template:
               provider: google
               target: _blank
         services.yaml: |
+          - Development:
             - ArgoCD:
                 href: https://argocd.0xk3m.dev
                 description: Continuous deployment
