@@ -42,7 +42,8 @@ loki:
       - name: AWS_DEFAULT_REGION
         value: ap-southeast-1
     persistence:
-      enabled: false
+      enabled: true
+      size: 5Gi
 
     resources:
       requests:
