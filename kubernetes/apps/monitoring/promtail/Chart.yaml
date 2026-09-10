@@ -1,0 +1,10 @@
+apiVersion: v2
+name: promtail
+description: Deploy promtail using grafana/promtail chart
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: promtail
+    version: 6.15.3
+    repository: https://grafana.github.io/helm-charts

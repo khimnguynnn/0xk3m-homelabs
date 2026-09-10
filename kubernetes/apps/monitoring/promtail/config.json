@@ -1,0 +1,4 @@
+{
+  "name": "promtail",
+  "srcPath": "kubernetes/apps/monitoring/promtail"
+}
