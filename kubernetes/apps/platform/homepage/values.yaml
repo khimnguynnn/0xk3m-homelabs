@@ -76,7 +76,7 @@ app-template:
                 icon: terraform.svg
           - Infrastructure:
             - Proxmox:
-              - href: https://192.168.73.10
+              - href: https://proxmox.0xk3m.dev
                 icon: router.svg
             - Google Cloud:
               - href: https://console.cloud.google.com
