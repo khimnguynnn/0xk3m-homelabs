@@ -42,12 +42,14 @@ resource "aws_iam_policy" "loki_s3" {
 
 module "iam_user" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-user"
-  version = "~> 5.60"
+  version = "~> 6.0"
 
   name = "0xk3m-loki-logs"
 
-  create_iam_user_login_profile = false
-  create_iam_access_key         = true
+  create_login_profile = false
+  create_access_key    = true
 
-  policy_arns = [aws_iam_policy.loki_s3.arn]
+  policies = {
+    loki_s3 = aws_iam_policy.loki_s3.arn
+  }
 }
