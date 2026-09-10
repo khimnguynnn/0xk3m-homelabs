@@ -45,9 +45,9 @@ external-secret-helper:
       data:
         - secretKey: openaiApiKey
           remoteRef:
-            key: app/open-webui
+            key: app/openweb-ui
             property: openaiApiKey
         - secretKey: openaiBaseApiUrl
           remoteRef:
-            key: app/open-webui
+            key: app/openweb-ui
             property: openaiBaseApiUrl
