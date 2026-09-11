@@ -20,10 +20,33 @@ open-webui:
         secretKeyRef:
           name: open-webui-secrets
           key: openaiApiKey
+    # S3 Storage
+    - name: STORAGE_PROVIDER
+      value: "s3"
+    - name: S3_BUCKET_NAME
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: s3BucketName
+    - name: S3_REGION_NAME
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: s3Region
+    - name: S3_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: s3AccessKeyId
+    - name: S3_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: s3SecretAccessKey
 
   persistence:
     enabled: true
-    size: 5Gi
+    size: 2Gi
     accessModes:
       - ReadWriteOnce
 
@@ -51,3 +74,19 @@ external-secret-helper:
           remoteRef:
             key: app/openweb-ui
             property: openaiBaseApiUrl
+        - secretKey: s3BucketName
+          remoteRef:
+            key: app/openweb-ui
+            property: s3BucketName
+        - secretKey: s3Region
+          remoteRef:
+            key: app/openweb-ui
+            property: s3Region
+        - secretKey: s3AccessKeyId
+          remoteRef:
+            key: app/openweb-ui
+            property: s3AccessKeyId
+        - secretKey: s3SecretAccessKey
+          remoteRef:
+            key: app/openweb-ui
+            property: s3SecretAccessKey
