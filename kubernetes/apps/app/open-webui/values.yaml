@@ -1,25 +1,11 @@
 open-webui:
-  # External OpenAI-compatible provider (DeepSeek); no in-cluster models.
   ollama:
     enabled: false
   pipelines:
     enabled: false
-
-  # Both endpoint URL and API key come from Vault via the secret below.
-  # Blank the chart's native key so it doesn't also emit a plain-value OPENAI env.
   enableOpenaiApi: true
   openaiBaseApiUrl: ""
   extraEnvVars:
-    - name: OPENAI_API_BASE_URL
-      valueFrom:
-        secretKeyRef:
-          name: open-webui-secrets
-          key: openaiBaseApiUrl
-    - name: OPENAI_API_KEY
-      valueFrom:
-        secretKeyRef:
-          name: open-webui-secrets
-          key: openaiApiKey
     # S3 Storage
     - name: STORAGE_PROVIDER
       value: "s3"
@@ -66,14 +52,6 @@ external-secret-helper:
     - name: open-webui-secrets
       refreshInterval: 1h
       data:
-        - secretKey: openaiApiKey
-          remoteRef:
-            key: app/openweb-ui
-            property: openaiApiKey
-        - secretKey: openaiBaseApiUrl
-          remoteRef:
-            key: app/openweb-ui
-            property: openaiBaseApiUrl
         - secretKey: s3BucketName
           remoteRef:
             key: app/openweb-ui
