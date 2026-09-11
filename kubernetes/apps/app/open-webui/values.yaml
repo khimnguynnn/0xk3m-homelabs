@@ -46,7 +46,7 @@ open-webui:
 
   persistence:
     enabled: true
-    size: 2Gi
+    size: 5Gi
     accessModes:
       - ReadWriteOnce
 
