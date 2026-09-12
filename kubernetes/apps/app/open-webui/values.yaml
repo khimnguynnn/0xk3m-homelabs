@@ -30,6 +30,35 @@ open-webui:
           name: open-webui-secrets
           key: s3SecretAccessKey
 
+    # Google OIDC Authentication
+    - name: WEBUI_URL
+      value: "https://chat.0xk3m.dev"
+    - name: ENABLE_OAUTH
+      value: "true"
+    - name: ENABLE_OAUTH_SIGNUP
+      value: "true"
+    - name: OAUTH_PROVIDER_NAME
+      value: "Google"
+    - name: OAUTH_SCOPES
+      value: "openid email profile"
+    - name: OPENID_REDIRECT_URI
+      value: "https://chat.0xk3m.dev/oauth/oidc/callback"
+    - name: OAUTH_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: oauthClientId
+    - name: OAUTH_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: oauthClientSecret
+    - name: OPENID_PROVIDER_URL
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-secrets
+          key: openidProviderUrl
+
   persistence:
     enabled: true
     size: 5Gi
@@ -68,3 +97,15 @@ external-secret-helper:
           remoteRef:
             key: app/openweb-ui
             property: s3SecretAccessKey
+        - secretKey: oauthClientId
+          remoteRef:
+            key: app/openweb-ui
+            property: oauthClientId
+        - secretKey: oauthClientSecret
+          remoteRef:
+            key: app/openweb-ui
+            property: oauthClientSecret
+        - secretKey: openidProviderUrl
+          remoteRef:
+            key: app/openweb-ui
+            property: openidProviderUrl
