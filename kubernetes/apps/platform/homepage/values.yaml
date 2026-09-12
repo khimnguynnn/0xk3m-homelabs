@@ -62,7 +62,7 @@ app-template:
             - ArgoCD:
                 href: https://argocd.0xk3m.dev
                 description: Continuous deployment
-                icon: argocd.svg
+                icon: argo-cd.svg
             - Grafana:
                 href: https://grafana.0xk3m.dev
                 description: Observability dashboards
