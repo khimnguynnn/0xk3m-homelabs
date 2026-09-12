@@ -46,4 +46,7 @@ cilium:
       service:
         type: ClusterIP
       ingress:
-        enabled: false
+        enabled: true
+        className: cloudflare-tunnel
+        hosts:
+          - hubble.0xk3m.dev
