@@ -67,6 +67,10 @@ app-template:
                 href: https://grafana.0xk3m.dev
                 description: Observability dashboards
                 icon: grafana.svg
+            - Hubble:
+                href: https://hubble.0xk3m.dev
+                description: Network observability
+                icon: cilium.svg
         bookmarks.yaml: |
           - Homelab:
             - Public homelab repository:
