@@ -18,13 +18,29 @@ app:
     type: ClusterIP
     port: 3000
 
-  livenessProbe: null
+  livenessProbe:
+    httpGet:
+      path: /mcp
+      port: http
+      httpHeaders:
+        - name: Accept
+          value: text/event-stream
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
   readinessProbe: null
+
+  env:
+    - name: OBSCURA_NAV_TIMEOUT_MS
+      value: "15000"
+    - name: OBSCURA_SCRIPT_DEADLINE_MS
+      value: "15000"
 
   resources:
     requests:
       cpu: 100m
       memory: 128Mi
     limits:
-      cpu: "1"
+      cpu: "2"
       memory: 1Gi

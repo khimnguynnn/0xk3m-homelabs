@@ -9,3 +9,4 @@ kubernetes/apps/**/charts/*.tgz
 
 # Worktrees
 .worktrees/
+.omo/
