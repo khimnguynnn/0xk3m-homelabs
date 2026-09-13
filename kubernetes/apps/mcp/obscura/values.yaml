@@ -1,0 +1,30 @@
+app:
+  image:
+    repository: h4ckf0r0day/obscura
+    tag: "0.2.2"
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  args:
+    - mcp
+    - --http
+    - --host
+    - "0.0.0.0"
+    - --port
+    - "3000"
+
+  service:
+    type: ClusterIP
+    port: 3000
+
+  livenessProbe: null
+  readinessProbe: null
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
