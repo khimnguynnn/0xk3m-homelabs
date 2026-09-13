@@ -1,7 +1,7 @@
 app:
   image:
-    repository: h4ckf0r0day/obscura
-    tag: "0.2.2"
+    repository: khimnguynn/obscura
+    tag: "0.2.2-snapshot-timeout"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
