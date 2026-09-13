@@ -18,17 +18,7 @@ app:
     type: ClusterIP
     port: 3000
 
-  livenessProbe:
-    httpGet:
-      path: /mcp
-      port: http
-      httpHeaders:
-        - name: Accept
-          value: text/event-stream
-    initialDelaySeconds: 15
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 3
+  livenessProbe: null
   readinessProbe: null
 
   env:
