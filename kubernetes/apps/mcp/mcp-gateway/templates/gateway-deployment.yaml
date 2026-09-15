@@ -27,6 +27,8 @@ spec:
               value: {{ .Values.redis.connectionString | quote }}
             - name: GatewaySettings__Secret
               value: {{ .Values.gatewaySecret | quote }}
+            - name: ContainerRegistrySettings__Endpoint
+              value: {{ .Values.containerRegistry.endpoint | quote }}
           livenessProbe:
             tcpSocket:
               port: 8000

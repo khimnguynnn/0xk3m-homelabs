@@ -22,6 +22,13 @@ redis:
   # bitnami redis standalone master service in the database namespace.
   connectionString: "redis-master.database.svc.cluster.local:6379"
 
+containerRegistry:
+  # Registry the gateway prepends to an adapter's imageName when it deploys the
+  # adapter StatefulSet. docker.io matches the khimnguynn/* images (obscura,
+  # mcp-proxy). Default upstream value is localhost:5000, which must be
+  # overridden for the homelab.
+  endpoint: "docker.io"
+
 ingress:
   className: cloudflare-tunnel
   host: mcp.0xk3m.dev
