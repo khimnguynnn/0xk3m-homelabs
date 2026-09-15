@@ -1,0 +1,35 @@
+# microsoft/mcp-gateway — centralized MCP gateway.
+#
+# Runs in the `mcp` namespace. The gateway deploys and manages adapters in the
+# `adapter` namespace (hardcoded upstream), including the toolgateway
+# StatefulSet (see kubernetes/apps/adapter/toolgateway).
+
+environment: Development
+
+gateway:
+  image:
+    repository: ghcr.io/microsoft/mcp-gateway
+    tag: latest
+    pullPolicy: IfNotPresent
+
+replicas: 1
+
+# Shared signing secret exchanged with the toolgateway (must match).
+# Static dev value — no Vault/ExternalSecret per decision.
+gatewaySecret: "localdev-gateway-secret"
+
+redis:
+  # bitnami redis standalone master service in the database namespace.
+  connectionString: "redis-master.database.svc.cluster.local:6379"
+
+ingress:
+  className: cloudflare-tunnel
+  host: mcp.0xk3m.dev
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi

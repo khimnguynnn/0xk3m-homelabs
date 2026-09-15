@@ -1,0 +1,5 @@
+apiVersion: v2
+name: mcp-gateway
+description: Centralized MCP gateway (microsoft/mcp-gateway) - gateway service in the mcp namespace
+type: application
+version: 1.0.0
