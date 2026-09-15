@@ -1,0 +1,4 @@
+{
+  "name": "redis",
+  "srcPath": "kubernetes/apps/database/redis"
+}

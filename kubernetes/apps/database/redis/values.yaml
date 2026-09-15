@@ -1,0 +1,8 @@
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  fullnameOverride: redis
+  master:
+    persistence:
+      enabled: false
