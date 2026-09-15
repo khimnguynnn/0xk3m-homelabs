@@ -1,0 +1,5 @@
+apiVersion: v2
+name: toolgateway
+description: MCP tool gateway router - runs in the adapter namespace managed by mcp-gateway
+type: application
+version: 1.0.0

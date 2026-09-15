@@ -1,0 +1,4 @@
+{
+  "name": "toolgateway",
+  "srcPath": "kubernetes/apps/adapter/toolgateway"
+}

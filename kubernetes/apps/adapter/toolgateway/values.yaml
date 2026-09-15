@@ -1,0 +1,31 @@
+# MCP tool gateway router for microsoft/mcp-gateway.
+#
+# Runs in the `adapter` namespace (hardcoded by the gateway). Serves the
+# tool-gateway router that the gateway reverse-proxies MCP traffic to.
+
+environment: Development
+
+image:
+  repository: ghcr.io/microsoft/tool-gateway
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Shared signing secret exchanged with the gateway (must match).
+# Static dev value — no Vault/ExternalSecret per decision.
+gatewaySecret: "localdev-gateway-secret"
+
+redis:
+  # bitnami redis standalone master service in the database namespace.
+  connectionString: "redis-master.database.svc.cluster.local:6379"
+
+# Namespace of the ServiceAccount the mcp-gateway runs as — granted the
+# app-manager role below so it can manage adapters in this namespace.
+gatewayServiceAccountNamespace: mcp
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
