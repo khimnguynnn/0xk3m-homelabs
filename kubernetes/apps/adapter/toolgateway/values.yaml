@@ -20,7 +20,7 @@ redis:
 
 # Namespace of the ServiceAccount the mcp-gateway runs as — granted the
 # app-manager role below so it can manage adapters in this namespace.
-gatewayServiceAccountNamespace: mcp
+gatewayServiceAccountNamespace: adapter
 
 resources:
   requests:

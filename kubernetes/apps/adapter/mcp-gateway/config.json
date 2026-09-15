@@ -1,0 +1,4 @@
+{
+  "name": "mcp-gateway",
+  "srcPath": "kubernetes/apps/adapter/mcp-gateway"
+}
