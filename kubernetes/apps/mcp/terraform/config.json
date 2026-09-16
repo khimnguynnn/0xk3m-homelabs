@@ -1,0 +1,4 @@
+{
+  "name": "terraform-mcp",
+  "srcPath": "kubernetes/apps/mcp/terraform"
+}
