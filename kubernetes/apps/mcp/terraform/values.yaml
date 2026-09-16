@@ -23,7 +23,8 @@ app:
 
   args:
     - streamable-http
-    - --port=8080
+    - --transport-host=0.0.0.0
+    - --transport-port=8080
     - --toolsets=all
 
   service:
