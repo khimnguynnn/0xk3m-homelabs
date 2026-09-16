@@ -29,9 +29,9 @@ containerRegistry:
   # overridden for the homelab.
   endpoint: "docker.io"
 
-# ingress:
-#   className: cloudflare-tunnel
-#   host: mcp.0xk3m.dev
+ingress:
+  className: cloudflare-tunnel
+  host: mcp.0xk3m.dev
 
 resources:
   requests:
