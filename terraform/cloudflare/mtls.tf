@@ -30,13 +30,13 @@ resource "cloudflare_ruleset" "access_enforcement" {
     },
     {
       description = "Block non-mTLS requests to mcp.0xk3m.dev control plane"
-      expression  = "(http.host eq \"mcp.0xk3m.dev\") and not cf.tls_client_auth.cert_verified and not http.request.uri.path matches \"^/adapters/[^/]+/mcp\" and not http.request.uri.path in {\"/favicon.ico\" \"/robots.txt\"} and not starts_with(http.request.uri.path, \"/static\") and not starts_with(http.request.uri.path, \"/assets\")"
+      expression  = "(http.host eq \"mcp.0xk3m.dev\") and not cf.tls_client_auth.cert_verified and not (starts_with(http.request.uri.path, \"/adapters/\") and ends_with(http.request.uri.path, \"/mcp\")) and not http.request.uri.path in {\"/favicon.ico\" \"/robots.txt\"} and not starts_with(http.request.uri.path, \"/static\") and not starts_with(http.request.uri.path, \"/assets\")"
       action      = "block"
       enabled     = true
     },
     {
       description = "Block requests without valid API key to mcp.0xk3m.dev data plane"
-      expression  = "(http.host eq \"mcp.0xk3m.dev\") and http.request.uri.path matches \"^/adapters/[^/]+/mcp\" and not (http.request.headers[\"authorization\"][0] eq \"Bearer ${local.mcp_api_key}\")"
+      expression  = "(http.host eq \"mcp.0xk3m.dev\") and starts_with(http.request.uri.path, \"/adapters/\") and ends_with(http.request.uri.path, \"/mcp\") and not (http.request.headers[\"authorization\"][0] eq \"Bearer ${local.mcp_api_key}\")"
       action      = "block"
       enabled     = true
     }
