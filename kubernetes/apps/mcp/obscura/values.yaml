@@ -51,10 +51,4 @@ app:
       memory: 1Gi
 
   ingress:
-    enabled: true
-    className: cloudflare-tunnel
-    hosts:
-      - host: obscura.0xk3m.dev
-        paths:
-          - path: /
-            pathType: Prefix
+    enabled: false
