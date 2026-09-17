@@ -58,6 +58,8 @@ open-webui:
         secretKeyRef:
           name: open-webui-secrets
           key: openidProviderUrl
+    - name: OAUTH_MERGE_ACCOUNTS_BY_EMAIL
+      value: "true"
 
   persistence:
     enabled: true
