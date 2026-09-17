@@ -60,6 +60,10 @@ open-webui:
           key: openidProviderUrl
     - name: OAUTH_MERGE_ACCOUNTS_BY_EMAIL
       value: "true"
+    - name: ENABLE_LOGIN_FORM
+      value: "false"
+    - name: ENABLE_SIGNUP
+      value: "false"
 
   persistence:
     enabled: true
