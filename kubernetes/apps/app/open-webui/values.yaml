@@ -78,7 +78,7 @@ open-webui:
     enabled: true
     enableSignup: false
     mergeAccountsByEmail: true
-    google:
+    oidc:
       enabled: true
       clientExistingSecret: "open-webui-secrets"
       clientIdExistingSecretKey: "oauthClientId"
