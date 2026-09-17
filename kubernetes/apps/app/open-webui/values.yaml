@@ -82,6 +82,28 @@ open-webui:
     host: chat.0xk3m.dev
     tls: false
 
+  startupProbe:
+    httpGet:
+      path: /health
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    failureThreshold: 20
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+    periodSeconds: 10
+    failureThreshold: 3
+
+  readinessProbe:
+    httpGet:
+      path: /health/db
+      port: http
+    periodSeconds: 10
+    failureThreshold: 3
+
 external-secret-helper:
   externalSecrets:
     - name: open-webui-secrets
