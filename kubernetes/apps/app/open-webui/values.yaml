@@ -58,12 +58,6 @@ open-webui:
         secretKeyRef:
           name: open-webui-secrets
           key: openidProviderUrl
-    - name: OAUTH_MERGE_ACCOUNTS_BY_EMAIL
-      value: "true"
-    - name: ENABLE_LOGIN_FORM
-      value: "false"
-    - name: ENABLE_SIGNUP
-      value: "false"
 
   persistence:
     enabled: true
@@ -103,6 +97,11 @@ open-webui:
       port: http
     periodSeconds: 10
     failureThreshold: 3
+
+  sso:
+    enabled: true
+    enableSignup: false
+    mergeAccountsByEmail: true
 
 external-secret-helper:
   externalSecrets:
