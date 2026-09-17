@@ -71,6 +71,15 @@ app-template:
                 href: https://hubble.0xk3m.dev
                 description: Network observability
                 icon: cilium.svg
+          - Infrastructure:
+            - Vault:
+                href: https://vault.0xk3m.dev
+                description: Secrets management
+                icon: vault.svg
+            - MCP Gateway:
+                href: https://mcp.0xk3m.dev
+                description: MCP server proxy
+                icon: mdi-api
         bookmarks.yaml: |
           - Homelab:
             - Public homelab repository:
