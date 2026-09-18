@@ -25,6 +25,7 @@ resource "helm_release" "argocd" {
       google_oauth_client_secret = local.google_oauth_client_secret
       chartmuseum_username       = local.chartmuseum_username
       chartmuseum_password       = local.chartmuseum_password
+      telegram_bot_token         = local.telegram_bot_token
     })
   ]
 }

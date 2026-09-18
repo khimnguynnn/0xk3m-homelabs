@@ -145,4 +145,11 @@ redis:
     enabled: true
 
 notifications:
-  enabled: false
+  enabled: true
+  secret:
+    create: true
+    items:
+      telegram-token: "${telegram_bot_token}"
+  notifiers:
+    service.telegram: |
+      token: $telegram-token

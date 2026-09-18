@@ -7,4 +7,5 @@ locals {
   github_username            = data.vault_kv_secret_v2.talos.data["github_username"]
   chartmuseum_username       = data.vault_kv_secret_v2.talos.data["chartmuseum_user"]
   chartmuseum_password       = data.vault_kv_secret_v2.talos.data["chartmuseum_passwd"]
+  telegram_bot_token         = data.vault_kv_secret_v2.talos.data["bot_token"]
 }
