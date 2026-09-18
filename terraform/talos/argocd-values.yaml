@@ -146,6 +146,7 @@ redis:
 
 notifications:
   enabled: true
+  argocdUrl: "https://argocd.0xk3m.dev"
   secret:
     create: true
     items:
@@ -153,3 +154,58 @@ notifications:
   notifiers:
     service.telegram: |
       token: $telegram-token
+  triggers:
+    on-sync-status-unknown: |
+      - description: Application status is 'Unknown'
+        send:
+        - app-sync-status-unknown
+        when: app.status.sync.status == 'Unknown'
+    on-sync-failed: |
+      - description: Application syncing has failed
+        send:
+        - app-sync-failed
+        when: app.status.operationState != nil and app.status.operationState.phase in ['Error', 'Failed']
+    on-health-degraded: |
+      - description: Application has degraded
+        send:
+        - app-health-degraded
+        when: app.status.health.status == 'Degraded'
+    on-sync-succeeded: |
+      - description: Application syncing has succeeded
+        send:
+        - app-sync-succeeded
+        when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded']
+  templates:
+    app-sync-status-unknown: |
+      message: |
+        ❓ <b>App Sync Status Unknown</b>
+        App: <code>{{.app.metadata.name}}</code>
+        Namespace: <code>{{.app.spec.destination.namespace}}</code>
+        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
+      telegram:
+        parse_mode: HTML
+    app-sync-failed: |
+      message: |
+        ❌ <b>App Sync Failed</b>
+        App: <code>{{.app.metadata.name}}</code>
+        Namespace: <code>{{.app.spec.destination.namespace}}</code>
+        Error: <code>{{.app.status.operationState.message}}</code>
+        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
+      telegram:
+        parse_mode: HTML
+    app-health-degraded: |
+      message: |
+        ⚠️ <b>App Health Degraded</b>
+        App: <code>{{.app.metadata.name}}</code>
+        Namespace: <code>{{.app.spec.destination.namespace}}</code>
+        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
+      telegram:
+        parse_mode: HTML
+    app-sync-succeeded: |
+      message: |
+        ✅ <b>App Sync Succeeded</b>
+        App: <code>{{.app.metadata.name}}</code>
+        Namespace: <code>{{.app.spec.destination.namespace}}</code>
+        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
+      telegram:
+        parse_mode: HTML
