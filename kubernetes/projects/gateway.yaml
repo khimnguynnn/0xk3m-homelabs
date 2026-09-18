@@ -45,6 +45,13 @@ spec:
     metadata:
       name: "{{ .name }}"
       namespace: argocd
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-failed.telegram: "5522033216"
+        notifications.argoproj.io/subscribe.on-health-degraded.telegram: "5522033216"
+        notifications.argoproj.io/subscribe.on-sync-status-unknown.telegram: "5522033216"
+        notifications.argoproj.io/subscribe.on-sync-succeeded.telegram: "5522033216"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
     spec:
       project: gateway
       source:
