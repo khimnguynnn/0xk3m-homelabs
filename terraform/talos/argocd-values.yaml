@@ -152,8 +152,11 @@ notifications:
     items:
       telegram-token: "${telegram_bot_token}"
   notifiers:
-    service.telegram: |
-      token: $telegram-token
+    service.webhook.telegram: |
+      url: https://api.telegram.org/bot$telegram-token/sendMessage
+      headers:
+        - name: Content-Type
+          value: application/json
   triggers:
     trigger.on-sync-status-unknown: |
       - description: Application status is 'Unknown'
@@ -177,35 +180,42 @@ notifications:
         when: app.status.operationState != nil and app.status.operationState.phase in ['Succeeded']
   templates:
     template.app-sync-status-unknown: |
-      message: |
-        ❓ <b>App Sync Status Unknown</b>
-        App: <code>{{.app.metadata.name}}</code>
-        Namespace: <code>{{.app.spec.destination.namespace}}</code>
-        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
-      telegram:
-        parse_mode: HTML
+      webhook:
+        telegram:
+          method: POST
+          body: |
+            {
+              "chat_id": 5522033216,
+              "parse_mode": "HTML",
+              "text": {{ printf "❓ <b>App Sync Status Unknown</b>\nApp: <code>%s</code>\nNamespace: <code>%s</code>\n<a href=\"%s/applications/%s\">Open in Argo CD</a>" .app.metadata.name .app.spec.destination.namespace .context.argocdUrl .app.metadata.name | toJson }}
+            }
     template.app-sync-failed: |
-      message: |
-        ❌ <b>App Sync Failed</b>
-        App: <code>{{.app.metadata.name}}</code>
-        Namespace: <code>{{.app.spec.destination.namespace}}</code>
-        Error: <code>{{.app.status.operationState.message}}</code>
-        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
-      telegram:
-        parse_mode: HTML
+      webhook:
+        telegram:
+          method: POST
+          body: |
+            {
+              "chat_id": 5522033216,
+              "parse_mode": "HTML",
+              "text": {{ printf "❌ <b>App Sync Failed</b>\nApp: <code>%s</code>\nNamespace: <code>%s</code>\nError: <code>%s</code>\n<a href=\"%s/applications/%s\">Open in Argo CD</a>" .app.metadata.name .app.spec.destination.namespace (html .app.status.operationState.message) .context.argocdUrl .app.metadata.name | toJson }}
+            }
     template.app-health-degraded: |
-      message: |
-        ⚠️ <b>App Health Degraded</b>
-        App: <code>{{.app.metadata.name}}</code>
-        Namespace: <code>{{.app.spec.destination.namespace}}</code>
-        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
-      telegram:
-        parse_mode: HTML
+      webhook:
+        telegram:
+          method: POST
+          body: |
+            {
+              "chat_id": 5522033216,
+              "parse_mode": "HTML",
+              "text": {{ printf "⚠️ <b>App Health Degraded</b>\nApp: <code>%s</code>\nNamespace: <code>%s</code>\n<a href=\"%s/applications/%s\">Open in Argo CD</a>" .app.metadata.name .app.spec.destination.namespace .context.argocdUrl .app.metadata.name | toJson }}
+            }
     template.app-sync-succeeded: |
-      message: |
-        ✅ <b>App Sync Succeeded</b>
-        App: <code>{{.app.metadata.name}}</code>
-        Namespace: <code>{{.app.spec.destination.namespace}}</code>
-        <a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">Open in Argo CD</a>
-      telegram:
-        parse_mode: HTML
+      webhook:
+        telegram:
+          method: POST
+          body: |
+            {
+              "chat_id": 5522033216,
+              "parse_mode": "HTML",
+              "text": {{ printf "✅ <b>App Sync Succeeded</b>\nApp: <code>%s</code>\nNamespace: <code>%s</code>\n<a href=\"%s/applications/%s\">Open in Argo CD</a>" .app.metadata.name .app.spec.destination.namespace .context.argocdUrl .app.metadata.name | toJson }}
+            }

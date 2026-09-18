@@ -46,10 +46,10 @@ spec:
       name: "{{ .name }}"
       namespace: argocd
       annotations:
-        notifications.argoproj.io/subscribe.on-sync-failed.telegram: "5522033216"
-        notifications.argoproj.io/subscribe.on-health-degraded.telegram: "5522033216"
-        notifications.argoproj.io/subscribe.on-sync-status-unknown.telegram: "5522033216"
-        notifications.argoproj.io/subscribe.on-sync-succeeded.telegram: "5522033216"
+        notifications.argoproj.io/subscribe.on-sync-failed.telegram: ""
+        notifications.argoproj.io/subscribe.on-health-degraded.telegram: ""
+        notifications.argoproj.io/subscribe.on-sync-status-unknown.telegram: ""
+        notifications.argoproj.io/subscribe.on-sync-succeeded.telegram: ""
       finalizers:
         - resources-finalizer.argocd.argoproj.io
     spec:
