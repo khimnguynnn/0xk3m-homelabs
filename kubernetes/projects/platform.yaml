@@ -10,17 +10,17 @@ metadata:
   namespace: argocd
 spec:
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   description: platform project
   destinations:
-  - namespace: '*'
-    server: '*'
+    - namespace: "*"
+      server: "*"
   namespaceResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   sourceRepos:
-  - '*'
+    - "*"
 status: {}
 
 ---
@@ -37,20 +37,20 @@ spec:
     - missingkey=error
   generators:
     - git:
-        repoURL: https://github.com/khimnguynnn/0xk3m-homelabs.git
+        repoURL: https://github.com/khimnguynnn/homelab.git
         revision: HEAD
         files:
           - path: kubernetes/apps/platform/*/config.json
   template:
     metadata:
-      name: '{{ .name }}'
+      name: "{{ .name }}"
       namespace: argocd
     spec:
       project: platform
       source:
-        repoURL: https://github.com/khimnguynnn/0xk3m-homelabs.git
+        repoURL: https://github.com/khimnguynnn/homelab.git
         targetRevision: HEAD
-        path: '{{ .srcPath }}'
+        path: "{{ .srcPath }}"
         helm:
           valueFiles:
             - values.yaml

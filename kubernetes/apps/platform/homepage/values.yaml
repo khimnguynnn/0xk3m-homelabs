@@ -83,7 +83,7 @@ app-template:
         bookmarks.yaml: |
           - Homelab:
             - Public homelab repository:
-              - href: https://github.com/khimnguynnn/0xk3m-homelabs
+              - href: https://github.com/khimnguynnn/homelab
                 icon: github.svg
           - Managed services:
             - Cloudflare:

@@ -3,10 +3,10 @@ kind: Application
 metadata:
   creationTimestamp: null
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/managed-by: argocd
-    app.kubernetes.io/name:  bootstrap
+    app.kubernetes.io/name: bootstrap
   name: bootstrap
   namespace: argocd
 spec:
@@ -14,18 +14,18 @@ spec:
     namespace: argocd
     server: https://kubernetes.default.svc
   ignoreDifferences:
-  - group: argoproj.io
-    jsonPointers:
-    - /status
-    kind: Application
+    - group: argoproj.io
+      jsonPointers:
+        - /status
+      kind: Application
   project: default
   source:
     path: kubernetes/projects
-    repoURL: https://github.com/khimnguynnn/0xk3m-homelabs.git
+    repoURL: https://github.com/khimnguynnn/homelab.git
   syncPolicy:
     automated:
       allowEmpty: true
       prune: true
       selfHeal: true
     syncOptions:
-    - allowEmpty=true
+      - allowEmpty=true
